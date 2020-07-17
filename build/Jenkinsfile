@@ -52,6 +52,7 @@ node(POD_LABEL){
         container('builder') 
         {
             sh """
+              ./checkout-proj.sh
               ./checkout-gdal.sh
             """
         }
@@ -61,6 +62,7 @@ node(POD_LABEL){
         container('builder') 
         {
             sh """
+              ./build-proj.sh
               ./build-gdal.sh
             """
         }
