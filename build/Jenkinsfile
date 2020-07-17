@@ -6,7 +6,7 @@ properties([
     pipelineTriggers([
             [$class: "GitHubPushTrigger"]
     ]),
-    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-gdla'],
+    [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/ossimlabs/ossim-gdal'],
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '20')),
     disableConcurrentBuilds()
 ])
@@ -47,21 +47,21 @@ node(POD_LABEL){
         }
         load "common-variables.groovy"
     }
-    stage (" Checkout gdla")
+    stage (" Checkout gdal")
     {
         container('builder') 
         {
             sh """
-              ./checkout-gdla.sh
+              ./checkout-gdal.sh
             """
         }
     }
-    stage (" Build gdla")
+    stage (" Build gdal")
     {
         container('builder') 
         {
             sh """
-              ./build-gdla.sh
+              ./build-gdal.sh
             """
         }
     }
