@@ -62,11 +62,24 @@ node(POD_LABEL){
         {
             sh """
               ./build-geos.sh
-              mkdir buildFiles
-              mv -t geos/*.so buildFiles
-              ls -r
+              
+              cd buildFiles
+              ls
+              cd ..
+              tar -czvf alpine-geos.tgz ./buildFiles
+              ls -lr
             """
         }
+    }
+    
+    stage("Publish"){
+        withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                          credentialsId: 'nexusCredentials',
+                          usernameVariable: 'MAVEN_REPO_USERNAME',
+                          passwordVariable: 'MAVEN_REPO_PASSWORD']])
+          {
+            sh "curl -v --upload-file alpine-geos.tgz https://nexus.ossim.io/repository/ossim-dependencies/"
+          }
     }
     
 	stage("Clean Workspace"){
