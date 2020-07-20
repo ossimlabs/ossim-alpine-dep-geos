@@ -62,6 +62,9 @@ node(POD_LABEL){
         {
             sh """
               ./build-geos.sh
+              mkdir buildFiles
+              mv -t geos/*.so buildFiles
+              ls -r
             """
         }
     }
