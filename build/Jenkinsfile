@@ -62,12 +62,10 @@ node(POD_LABEL){
         {
             sh """
               ./build-geos.sh
-              
-              cd buildFiles
               ls
-              cd ..
-              tar -czvf alpine-geos.tgz ./buildFiles
-              ls -lr
+              
+              tar -czvf alpine-geos.tgz ./build
+              ls -lR
             """
         }
     }
