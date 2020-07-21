@@ -62,21 +62,16 @@ node(POD_LABEL){
         {
             sh """
               ./build-geos.sh
-              ls
-              
-              tar -czvf alpine-geos.tgz ./build
-              ls -lR
+              tar -czvf alpine-geos.tgz /usr/local
             """
+            archiveArtifacts "alpine-geos.tgz"
         }
     }
     
     stage("Publish"){
-        withCredentials([[$class: 'UsernamePasswordMultiBinding',
-                          credentialsId: 'nexusCredentials',
-                          usernameVariable: 'MAVEN_REPO_USERNAME',
-                          passwordVariable: 'MAVEN_REPO_PASSWORD']])
+        withCredentials([usernameColonPassword(credentialsId: 'nexusCredentials', variable: 'NEXUS_CREDENTIALS')])
           {
-            sh "curl -v --upload-file alpine-geos.tgz https://nexus.ossim.io/repository/ossim-dependencies/"
+            sh "curl -v -u ${NEXUS_CREDENTIALS} --upload-file alpine-geos.tgz https://nexus.ossim.io/repository/ossim-dependencies/"
           }
     }
     
