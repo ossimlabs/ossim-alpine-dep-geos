@@ -65,7 +65,6 @@ node(POD_LABEL){
               cd /usr/local
               tar -czvf alpine-geos.tgz *
             """
-            archiveArtifacts "alpine-geos.tgz"
         }
     }
     
