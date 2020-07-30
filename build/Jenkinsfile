@@ -62,7 +62,8 @@ node(POD_LABEL){
         {
             sh """
               ./build-geos.sh
-              tar -czvf alpine-geos.tgz /usr/local
+              cd /usr/local
+              tar -czvf alpine-geos.tgz *
             """
             archiveArtifacts "alpine-geos.tgz"
         }
