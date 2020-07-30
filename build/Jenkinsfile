@@ -74,7 +74,7 @@ node(POD_LABEL){
             container('builder') {
               sh """
               cd /usr/local
-              sh "curl -v -u ${NEXUS_CREDENTIALS} --upload-file alpine-geos.tgz https://nexus.ossim.io/repository/ossim-dependencies/"""
+              curl -v -u ${NEXUS_CREDENTIALS} --upload-file alpine-geos.tgz https://nexus.ossim.io/repository/ossim-dependencies/"""
             }
           }
     }
