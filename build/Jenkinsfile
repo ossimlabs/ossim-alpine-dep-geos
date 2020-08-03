@@ -47,6 +47,26 @@ node(POD_LABEL){
         }
         load "common-variables.groovy"
     }
+    stage (" Checkout geos")
+    {
+        container('builder') 
+        {
+            sh """
+              ./checkout-geos.sh
+            """
+        }
+    }
+    stage (" Build geos")
+    {
+        container('builder') 
+        {
+            sh """
+              ./build-geos.sh
+              cd /usr/local
+              tar -czvf alpine-geos.tgz *
+            """
+        }
+    }
     
     stage("Publish"){
         withCredentials([usernameColonPassword(credentialsId: 'nexusCredentials', variable: 'NEXUS_CREDENTIALS')]){
