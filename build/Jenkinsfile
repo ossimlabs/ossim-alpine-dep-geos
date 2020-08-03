@@ -52,7 +52,6 @@ node(POD_LABEL){
         container('builder') 
         {
             sh """
-              ./build-geos.sh
               cd /usr/local
               tar -czvf alpine-geos.tgz *
             """
